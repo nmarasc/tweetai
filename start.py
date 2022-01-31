@@ -5,6 +5,7 @@ import os
 import logging
 import logging.config
 import argparse
+import json
 
 from hanai import HanAI
 
@@ -25,8 +26,16 @@ def main(config):
     logger = logging.getLogger(__name__)
     logger.info('Logging configured and initialized')
 
-    bearer = os.getenv('BEARER_KEY')
-    hanAI = HanAI(bearer, os.getenv('USER_ID'), args.enable)
+    with open('.auth/oauth.json') as auth:
+        data = json.load(auth)
+
+    hanAI = HanAI(
+        os.getenv('BEARER_TOKEN'),
+        data['oauth_token'],
+        data['oauth_token_secret'],
+        os.getenv('TWTUSER'),
+        args.enable
+    )
     hanAI.run()
 
 

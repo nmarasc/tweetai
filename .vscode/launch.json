@@ -6,7 +6,11 @@
       "request": "launch",
       "program": "/home/ndm/git/hanAI/start.py",
       "args": ["-vt"],
-      "console": "integratedTerminal"
+      "console": "integratedTerminal",
+      "cwd": "/home/ndm/git/hanAI",
+      "env": {
+        "PYTHONPATH": "${cwd}"
+      }
     }
   ]
 }
