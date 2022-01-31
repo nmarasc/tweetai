@@ -1,0 +1,12 @@
+{
+  "configurations": [
+    {
+      "name": "Python: Test Run",
+      "type": "python",
+      "request": "launch",
+      "program": "/home/ndm/git/hanAI/start.py",
+      "args": ["-vt"],
+      "console": "integratedTerminal"
+    }
+  ]
+}

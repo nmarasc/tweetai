@@ -19,6 +19,7 @@ REQUIRES_PYTHON = '>=3.10.0'
 # Only include direct dependencies, transitive dependencies should be
 # handled automatically.
 REQUIRED = [
+    'tweepy'
 ]
 
 # What packages are optional?
