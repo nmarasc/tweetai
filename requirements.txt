@@ -1,0 +1,2 @@
+# Let setup.py handle dependencies
+.[dev]
