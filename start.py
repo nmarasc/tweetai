@@ -5,7 +5,6 @@ import os
 import logging
 import logging.config
 import argparse
-import json
 
 from hanai import HanAI
 
@@ -26,15 +25,17 @@ def main(config):
     logger = logging.getLogger(__name__)
     logger.info('Logging configured and initialized')
 
-    with open('.auth/oauth.json') as auth:
-        data = json.load(auth)
-
+    auth = {
+        'bearer_token': os.getenv('BEARER_TOKEN'),
+        'consumer_key': os.getenv('CONSUMER_KEY'),
+        'consumer_secret': os.getenv('CONSUMER_SECRET'),
+        'access_token': os.getenv('USER_ACCESS_TOKEN'),
+        'access_secret': os.getenv('USER_ACCESS_SECRET'),
+    }
     hanAI = HanAI(
-        os.getenv('BEARER_TOKEN'),
-        data['oauth_token'],
-        data['oauth_token_secret'],
-        os.getenv('TWTUSER'),
-        args.enable
+        auth=auth,
+        user=os.getenv('TWTUSER'),
+        enabled=args.enable
     )
     hanAI.run()
 
@@ -61,7 +62,7 @@ def parseCL():
         nargs='?', metavar='option',
         help='\tdo not write values to disk')
     parser.add_argument(
-        '-e', '--enable', action='store_true',
+        '-e', '--enable', action='store_true', default=False,
         help='\tallow the bot to start tweeting')
 
     args = parser.parse_args()

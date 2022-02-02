@@ -219,5 +219,8 @@ pip-selfcheck.json
 # Support for Project snippet scope
 
 .[Aa]uth
+checkpoint/
+models/
+*.csv
 
 # End of https://www.toptal.com/developers/gitignore/api/linux,python,venv,visualstudiocode,git
