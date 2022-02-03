@@ -38,4 +38,4 @@ class Mouth:
         """
         logger.info(f'Sending tweet: {tweet}')
         tweet = re.sub(r'#', 'hashtag ', tweet)
-        self.client.create_tweet(text=tweet)
+        self.client.create_tweet(text=tweet[:280])
