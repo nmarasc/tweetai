@@ -55,6 +55,7 @@ class Brain:
         self.userid = self.client.get_user(username=username).data['id']
         self.tweets = []
         self._initializeModel()
+        self._generateTweetSet()
 
     def getTweet(self):
         r"""Get a tweet.
@@ -82,11 +83,11 @@ class Brain:
         return tweet
 
     def _generateTweetSet(self):
-        r"""Generate a set of about 50 tweets.
+        r"""Generate a set of about 10 tweets.
 
-        Attempts to generate a list of 50 tweets. If any of the generated tweets are
+        Attempts to generate a list of 10 tweets. If any of the generated tweets are
         exactly the same text as a tweet from the data, it is not included. So the
-        list length may be less than 50.
+        list length may be less than 10.
 
         Returns
         -------
@@ -95,14 +96,16 @@ class Brain:
 
         Warning
         -------
-        List size is not guaranteed to be exactly 50 due to not including certain generated text
+        List size is not guaranteed to be exactly 10 due to not including certain generated text
         """
         self.tweets = []
-        tweet_list = self._generateN(50)
+        tweet_list = self._generateN(10)
         for tweet in tweet_list:
             tweet = re.sub(r'<\|startoftext\|>', '', tweet)
             if self._uniqueTweet(tweet):
                 self.tweets.append(tweet)
+        gpt2.reset_session(self.session)
+        self.session = None
 
     def _initializeModel(self):
         r"""Check if a new AI model needs to be trained."""
