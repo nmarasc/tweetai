@@ -118,6 +118,9 @@ class HanAI:
         while self._running:
             now = datetime.now()
             next_time = now + (datetime.min - now) % timedelta(hours=2)
+            if next_time.hour % 2 == 1:
+                # Adjust to get back on even hour cycle
+                next_time.hour = next_time.hour - 1
             try:
                 await asyncio.sleep((next_time - now).seconds)
                 tweet = self.brain.getTweet()
