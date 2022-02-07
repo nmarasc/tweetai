@@ -2,6 +2,18 @@
 
 - Database for generated tweets to prevent duplicates
 
+## [1.0.1] - 2022-02-07
+
+### Added
+-
+
+### Changed
+- Adjust tweets posting to be on even hour cycle
+- Pre generate tweet buffer on start
+
+### Fixed
+- Reset model after generating to reduce memory usage
+
 ## [1.0.0] - 2022-02-03
 
 ### Added
