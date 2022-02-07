@@ -171,9 +171,10 @@ class Brain:
         bool
             False if the text is in the training data, True otherwise
         """
+        clean = re.sub('"', '', tweet)
         with open(f'{self.username}.csv') as db:
             for line in db.readlines():
-                if tweet in line:
+                if clean in re.sub('"', '', line):
                     return False
         return True
 
