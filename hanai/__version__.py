@@ -37,7 +37,7 @@ def getVersion(version):
     return main + sub
 
 
-VERSION = (1, 0, 0, 'final', 0)
+VERSION = (1, 0, 1, 'final', 0)
 
 __title__ = 'HanAI'
 __description__ = 'Learning to make banger tweets from an oni pirate.'
