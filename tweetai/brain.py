@@ -198,7 +198,7 @@ class Brain:
         response = self.client.get_users_tweets(
             self.userid, max_results=100,
             exclude=['retweets'],
-            start_time='2010-05-01T00:00:00Z',
+            start_time='2010-11-06T00:00:00Z',
         )
         for tweet in response.data:
             text = self._cleanText(tweet['text'])
@@ -212,7 +212,7 @@ class Brain:
             response = self.client.get_users_tweets(
                 self.userid, max_results=100,
                 exclude=['retweets'],
-                start_time='2010-05-01T00:00:00Z',
+                start_time='2010-11-06T00:00:00Z',
                 pagination_token=response.meta['next_token']
             )
             for tweet in response.data:
