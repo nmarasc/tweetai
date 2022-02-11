@@ -2,10 +2,10 @@
 
 import logging
 
-from hanai.__version__ import (__author__, __author_email__, __copyright__,
+from tweetai.__version__ import (__author__, __author_email__, __copyright__,
                                __description__, __license__, __title__,
                                __url__, __version__)
-from hanai.core import HanAI, __doc__
+from tweetai.core import TweetAI, __doc__
 
 try:
     from logging import NullHandler

@@ -146,7 +146,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.env
+*.env
 .venv
 env/
 venv/
@@ -188,7 +188,6 @@ cython_debug/
 ### venv ###
 # Virtualenv
 # http://iamzed.com/2009/05/07/a-primer-on-virtualenv/
-[Bb]in
 [Ii]nclude
 [Ll]ib
 [Ll]ib64

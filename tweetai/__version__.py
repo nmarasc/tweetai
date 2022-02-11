@@ -37,13 +37,16 @@ def getVersion(version):
     return main + sub
 
 
-VERSION = (1, 0, 1, 'final', 0)
+VERSION = (1, 0, 2, 'final', 0)
 
-__title__ = 'HanAI'
-__description__ = 'Learning to make banger tweets from an oni pirate.'
-__url__ = 'https://gitlab.com/nmarasc/hanai'
+__title__ = 'TweetAI'
+__description__ = 'AI driven tweets trained on users.'
+__url__ = 'https://gitlab.com/nmarasc/tweetai'
 __version__ = getVersion(VERSION)
 __author__ = 'Nick Marasco'
 __author_email__ = 'nicdmarasco@gmail.com'
 __license__ = 'MIT License'
 __copyright__ = 'Copyright 2022 Nick Marasco'
+
+if __name__ == '__main__':
+    print(getVersion(VERSION))

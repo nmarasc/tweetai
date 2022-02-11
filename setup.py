@@ -11,7 +11,7 @@ from shutil import rmtree
 
 from setuptools import find_packages, setup, Command
 
-NAME = 'hanai'
+NAME = 'tweetai'
 
 REQUIRES_PYTHON = '>=3.10.0'
 
