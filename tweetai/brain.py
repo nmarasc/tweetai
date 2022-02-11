@@ -110,15 +110,16 @@ class Brain:
     def _initializeModel(self):
         r"""Check if a new AI model needs to be trained."""
         self.session = None
-
-        model_name = '355M'
-        if not os.path.isdir(os.path.join('models', model_name)):
-            logger.info(f'Downloading {model_name} model...')
-            gpt2.download_gpt2(model_name=model_name)
-
         self.run_name = 'run1'
+
         if not os.path.isdir(os.path.join('checkpoint', self.run_name)):
+            model_name = '355M'
             logger.info('Need to train a new model. This could take a while...')
+
+            if not os.path.isdir(os.path.join('models', model_name)):
+                logger.info(f'Downloading {model_name} model...')
+                gpt2.download_gpt2(model_name=model_name)
+
             if not os.path.isfile(f'{self.username}.csv'):
                 logger.info('Fetching new twitter data...')
                 self._getNewTwitterData()

@@ -27,4 +27,4 @@ RUN python3 setup.py install
 RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /app
 USER appuser
 
-CMD ["python", "start.py"]
+CMD ["python", "start.py", "-v"]
