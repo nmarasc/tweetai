@@ -2,6 +2,18 @@
 
 - Database for generated tweets to prevent duplicates
 
+## [1.0.2] - 2022-02-10
+
+### Added
+- Dockerfile for image building
+- Build and release scripts to streamline docker builds
+
+### Changed
+- Project named changed to TweetAI as the code is generic
+
+### Fixed
+- Unique tweet check did not account for quotes in tweet data
+
 ## [1.0.1] - 2022-02-07
 
 ### Added
