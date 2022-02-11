@@ -2,6 +2,17 @@
 
 - Database for generated tweets to prevent duplicates
 
+## [1.0.3] - 2022-02-11
+
+### Added
+- Start script for running the container
+
+### Changed
+- Model training check arranged in a more sensible order
+
+### Fixed
+- Start time for fetching tweet data
+
 ## [1.0.2] - 2022-02-10
 
 ### Added
