@@ -1,4 +1,4 @@
-# Contributing to HanAI
+# Contributing to TweetAI
 
 If you're here because you want to contribute to this project, whether that be new code, reporting a bug, or requesting a new feature, you've come to the right place and your desire to help is appreciated.
 
@@ -60,7 +60,7 @@ If you have determined that this is not a security issue and there is no outstan
 
 #### I Want to Suggest a Feature
 
-The main purpose of HanAI is to provide commands and tools to discord users and admins through a chat interface in order to create and maintain a more fun environment. All of that is an elevator pictch way of saying that the sky is the limit when it comes to new features as long as you think it would be something fun for people to have or useful to them as a tool. New suggestions for features should do their best to align with these goals. This does not mean that tangential ideas will be outright rejected but they will require more consideration and discussion.
+The main purpose of TweetAI is to generate and post tweets using a machine learning model trained on the tweets of another user. This is purely done for entertainment value. New suggestions for features should do their best to align with these goals. This does not mean that tangential ideas will be outright rejected but they will require more consideration and discussion.
 
 With that in mind, if you would like to submit your feature request then you may open a new issue with the Feature template and fill out the information there.
 

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-r"""Main module containing the HanAI class.
+r"""Main module containing the TweetAI class.
 
 Classes
 -------
-HanAI
-    Tweet generating bot that learns from an oni pirate
+TweetAI
+    Tweet generating bot that learns from a Twitter user
 """
 import logging
 import asyncio
@@ -15,13 +15,13 @@ import tweepy
 from .brain import Brain
 from .mouth import Mouth
 
-__all__ = ['HanAI']
+__all__ = ['TweetAI']
 
 logger = logging.getLogger(__name__)
 
 
-class HanAI:
-    r"""Tweet generating bot that learns from an oni pirate.
+class TweetAI:
+    r"""Tweet generating bot that learns from a Twitter user.
 
     Parameters
     ----------

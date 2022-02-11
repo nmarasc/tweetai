@@ -1,12 +1,12 @@
 #!/usr/bin/env python3.10
 # -*- coding: utf-8 -*-
-r"""Main driver script for HanAI."""
+r"""Main driver script for tweetAI."""
 import os
 import logging
 import logging.config
 import argparse
 
-from hanai import HanAI
+from tweetai import TweetAI
 
 LOGDIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), '.log')
 
@@ -32,12 +32,12 @@ def main(config):
         'access_token': os.getenv('USER_ACCESS_TOKEN'),
         'access_secret': os.getenv('USER_ACCESS_SECRET'),
     }
-    hanAI = HanAI(
+    tweetAI = TweetAI(
         auth=auth,
         user=os.getenv('TWTUSER'),
         enabled=args.enable
     )
-    hanAI.run()
+    tweetAI.run()
 
 
 def parseCL():
