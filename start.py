@@ -35,6 +35,7 @@ def main(config):
     tweetAI = TweetAI(
         auth=auth,
         user=os.getenv('TWTUSER'),
+        blocked=args.blocked,
         enabled=args.enable
     )
     tweetAI.run()
@@ -51,6 +52,9 @@ def parseCL():
         )
     )
 
+    parser.add_argument(
+        '-b', '--blocked', action='store', nargs='?',
+        help='\tPath to file containing blocked terms')
     parser.add_argument(
         '-d', '--debug', action='store_true',
         help='\tadd debug messages to the log')
