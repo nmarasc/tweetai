@@ -26,6 +26,8 @@ class Brain:
         Tweepy client instance
     username
         Twitter username of whom to base tweets on
+    blocked
+        Path to a list of blocked terms
 
     Attributes
     ----------
@@ -35,6 +37,8 @@ class Brain:
         Twitter username of whom to base tweets on
     userid
         Twitter user id of the username provided
+    blocked
+        List of blocked terms
     session
         Gpt2 artificial intelligence session
     run_name
@@ -49,11 +53,20 @@ class Brain:
     getTweet
         Retrieves a single tweet, ready to post
     """
-    def __init__(self, client, username):
+    def __init__(self, client, username, blocked):
         self.client = client
         self.username = username
         self.userid = self.client.get_user(username=username).data['id']
         self.tweets = []
+        self.blocked = []
+        if blocked is None:
+            logger.info('No block list path provided, continuing with no blocked terms')
+        elif os.path.isfile(blocked):
+            with open(blocked) as blist:
+                self.blocked = [term.rstrip() for term in blist.readlines()]
+        else:
+            logger.error('Block list path not found, continuing with no blocked terms')
+
         self._initializeModel()
         self._generateTweetSet()
 
@@ -68,19 +81,6 @@ class Brain:
         if len(self.tweets) == 0:
             self._generateTweetSet()
         return self.tweets.pop(0)
-
-    def _generateTweet(self):
-        r"""Generate a single tweet.
-
-        Returns
-        -------
-        str
-            Text of a tweet
-        """
-        tweet = re.sub(r'<\|startoftext\|>', '', self._generateN(1)[0])
-        while not self._uniqueTweet(tweet):
-            tweet = re.sub(r'<\|startoftext\|>', '', self._generateN(1)[0])
-        return tweet
 
     def _generateTweetSet(self):
         r"""Generate a set of about 10 tweets.
@@ -102,7 +102,7 @@ class Brain:
         tweet_list = self._generateN(10)
         for tweet in tweet_list:
             tweet = re.sub(r'<\|startoftext\|>', '', tweet)
-            if self._uniqueTweet(tweet):
+            if self._checkTweet(tweet):
                 self.tweets.append(tweet)
         gpt2.reset_session(self.session)
         self.session = None
@@ -112,6 +112,11 @@ class Brain:
         self.session = None
         self.run_name = 'run1'
 
+        if not os.path.isfile(f'{self.username}.csv'):
+            logger.info('Fetching new twitter data...')
+            self._getNewTwitterData()
+            logger.info('Finished gathering twitter data')
+
         if not os.path.isdir(os.path.join('checkpoint', self.run_name)):
             model_name = '355M'
             logger.info('Need to train a new model. This could take a while...')
@@ -119,11 +124,6 @@ class Brain:
             if not os.path.isdir(os.path.join('models', model_name)):
                 logger.info(f'Downloading {model_name} model...')
                 gpt2.download_gpt2(model_name=model_name)
-
-            if not os.path.isfile(f'{self.username}.csv'):
-                logger.info('Fetching new twitter data...')
-                self._getNewTwitterData()
-                logger.info('Finished gathering twitter data')
 
             logger.info('Starting model training. Please be patient...')
             self.session = gpt2.start_tf_sess()
@@ -159,7 +159,22 @@ class Brain:
             nsamples=num, return_as_list=True
         )
 
-    def _uniqueTweet(self, tweet):
+    def _checkTweet(self, tweet):
+        r"""Check if tweet is allowed.
+
+        Parameters
+        ----------
+        tweet
+            Text to check
+
+        Returns
+        -------
+        bool
+            True if tweet passes all checks
+        """
+        return all([self._isUniqueTweet(tweet), not self._isBlockedTweet(tweet)])
+
+    def _isUniqueTweet(self, tweet):
         r"""Check if the generated text is in the training data.
 
         Parameters
@@ -178,6 +193,23 @@ class Brain:
                 if clean in re.sub('"', '', line):
                     return False
         return True
+
+    def _isBlockedTweet(self, tweet):
+        r"""Check if tweet contains a blocked term.
+
+        Parameters
+        ----------
+        tweet
+            Text to check for blocked terms
+
+        Returns
+        -------
+        bool
+            True if text contains a blocked term
+        """
+        if self.blocked == []:
+            return False
+        return any([term for term in self.blocked if term in tweet])
 
     def _getNewTwitterData(self):
         r"""Set up csv writer to get tweet data."""
@@ -198,7 +230,7 @@ class Brain:
 
         response = self.client.get_users_tweets(
             self.userid, max_results=100,
-            exclude=['retweets'],
+            exclude=['retweets', 'replies'],
             start_time='2010-11-06T00:00:00Z',
         )
         for tweet in response.data:
@@ -212,7 +244,7 @@ class Brain:
             sleep(2)
             response = self.client.get_users_tweets(
                 self.userid, max_results=100,
-                exclude=['retweets'],
+                exclude=['retweets', 'replies'],
                 start_time='2010-11-06T00:00:00Z',
                 pagination_token=response.meta['next_token']
             )

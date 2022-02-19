@@ -19,14 +19,17 @@ class Mouth:
     ----------
     client
         Tweepy client instance
+    enabled
+        True if bot is allowed to send out tweets
 
     Methods
     -------
     sendTweet
         Send a given text as a tweet
     """
-    def __init__(self, client):
+    def __init__(self, client, enabled):
         self.client = client
+        self.enabled = enabled
 
     def sendTweet(self, tweet):
         r"""Send a given text as a tweet.
@@ -36,6 +39,9 @@ class Mouth:
         tweet
             Text to send as a tweet
         """
-        logger.info(f'Sending tweet: {tweet}')
         tweet = re.sub(r'#', 'hashtag ', tweet)
-        self.client.create_tweet(text=tweet[:280])
+        logger.info(f'Tweet prepared: {tweet}')
+        if self.enabled:
+            self.client.create_tweet(text=tweet[:280])
+        else:
+            logger.info('Tweet posting is not enabled. Tweet not sent')

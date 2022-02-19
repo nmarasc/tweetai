@@ -220,6 +220,7 @@ pip-selfcheck.json
 .[Aa]uth
 checkpoint/
 models/
+blocklist.txt
 *.csv
 
 # End of https://www.toptal.com/developers/gitignore/api/linux,python,venv,visualstudiocode,git

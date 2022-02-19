@@ -2,6 +2,19 @@
 
 - Database for generated tweets to prevent duplicates
 
+## [1.1.0] - 2022-02-18
+
+### Added
+- Support for a blocked terms list
+- Switch for allowing bot to post tweets
+
+### Changed
+- No longer grabbing replies from twitter data
+
+### Fixed
+- Start script error and improvements
+- Need to fetch twitter data even if there's no training to be done
+
 ## [1.0.3] - 2022-02-11
 
 ### Added

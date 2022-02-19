@@ -29,6 +29,8 @@ class TweetAI:
         dictionary containing all the required auth tokens and secrets, see:auth section
     user
         Twitter username to read tweets from
+    blocked: optional
+        Path to a list of blocked terms
     enabled: optional
         True if bot is allowed to post tweets, default is False
 
@@ -49,8 +51,6 @@ class TweetAI:
     ----------
     username
         Twitter user name to base tweets on
-    enabled
-        True if bot is allowed to post tweets
     brain
         AI processing and text generating instance
     mouth
@@ -61,7 +61,7 @@ class TweetAI:
     ValueError
         API tokens or user was not provided on creation
     """
-    def __init__(self, *, auth, user, enabled=False):
+    def __init__(self, *, auth, user, blocked=None, enabled=False):
         if not auth['bearer_token']:
             logger.critical('No bearer token was provided!')
             raise ValueError('no bearer token provided')
@@ -75,7 +75,6 @@ class TweetAI:
             logger.critical('User was not provided!')
             raise ValueError('no user provided')
 
-        self.enabled = enabled
         self.username = user
         client = tweepy.Client(
             bearer_token=auth['bearer_token'],
@@ -84,8 +83,8 @@ class TweetAI:
             access_token=auth['access_token'],
             access_token_secret=auth['access_secret']
         )
-        self.brain = Brain(client, self.username)
-        self.mouth = Mouth(client)
+        self.brain = Brain(client, self.username, blocked)
+        self.mouth = Mouth(client, enabled)
         self.loop = asyncio.get_event_loop()
 
     def run(self):

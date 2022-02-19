@@ -32,9 +32,11 @@ def main(config):
         'access_token': os.getenv('USER_ACCESS_TOKEN'),
         'access_secret': os.getenv('USER_ACCESS_SECRET'),
     }
+    blocked = os.getenv('BLOCKED_TERMS')
     tweetAI = TweetAI(
         auth=auth,
         user=os.getenv('TWTUSER'),
+        blocked=blocked,
         enabled=args.enable
     )
     tweetAI.run()
