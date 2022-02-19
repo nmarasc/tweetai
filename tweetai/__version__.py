@@ -37,7 +37,7 @@ def getVersion(version):
     return main + sub
 
 
-VERSION = (1, 0, 3, 'final', 0)
+VERSION = (1, 1, 0, 'final', 0)
 
 __title__ = 'TweetAI'
 __description__ = 'AI driven tweets trained on users.'
