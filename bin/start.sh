@@ -1,11 +1,13 @@
 #!/bin/bash
 set -ex
 
-URL=$1
-CNAME=$2
+CNAME=$1
+URL=$2
 BLOCK=$3
+DATA=$4
 
 MODEL="checkpoint/run1"
+TZ=`cat /etc/timezone`
 
 MOUNT_OPS=""
 if [ -d $MODEL ]; then
@@ -14,9 +16,12 @@ fi
 if [ ! -z $BLOCK ] && [ -f $BLOCK ]; then
     MOUNT_OPS="$MOUNT_OPS -v $PWD/$BLOCK:/app/$BLOCK"
 fi
+if [ ! -z $DATA ] && [ -f $DATA ]; then
+    MOUNT_OPS="$MOUNT_OPS -v $PWD/$DATA:/app/$DATA"
+fi
 
 source $PWD/.creds
 docker login $URL -u $GL_USER -p $GL_TOKEN
 
 docker pull $URL:latest
-docker run -d --rm --name $CNAME --env-file docker.env $MOUNT_OPS $URL
+docker run --rm --name $CNAME --env-file docker.env -e TZ=$TZ $MOUNT_OPS $URL

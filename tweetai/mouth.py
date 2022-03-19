@@ -8,6 +8,7 @@ Mouth
 """
 import logging
 import re
+from unicodedata import normalize
 
 logger = logging.getLogger(__name__)
 
@@ -42,6 +43,10 @@ class Mouth:
         tweet = re.sub(r'#', 'hashtag ', tweet)
         logger.info(f'Tweet prepared: {tweet}')
         if self.enabled:
-            self.client.create_tweet(text=tweet[:280])
+            try:
+                self.client.create_tweet(text=normalize("NFC", tweet)[:279])
+            except Exception as e:
+                logger.error('Failed to post tweet with exception')
+                logger.error(e)
         else:
             logger.info('Tweet posting is not enabled. Tweet not sent')
