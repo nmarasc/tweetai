@@ -2,7 +2,7 @@
 
 - Database for generated tweets to prevent duplicates
 
-## [1.1.1] - 2022-02-XX
+## [1.1.1] - 2022-02-19
 
 ### Added
 - Option for data mount on the start script
