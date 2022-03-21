@@ -11,6 +11,7 @@ import logging
 import csv
 import re
 from time import sleep
+import requests
 
 import gpt_2_simple as gpt2
 
@@ -172,7 +173,11 @@ class Brain:
         bool
             True if tweet passes all checks
         """
-        return all([self._isUniqueTweet(tweet), not self._isBlockedTweet(tweet)])
+        return all([
+            self._isUniqueTweet(tweet),
+            not self._isBlockedTweet(tweet),
+            not self._hasLink(tweet)
+        ])
 
     def _isUniqueTweet(self, tweet):
         r"""Check if the generated text is in the training data.
@@ -210,6 +215,28 @@ class Brain:
         if self.blocked == []:
             return False
         return any([term for term in self.blocked if term in tweet])
+
+    def _hasLink(self, tweet):
+        r"""Check if tweet contains a link.
+
+        Parameters
+        ----------
+        tweet
+            Text to check for link(s)
+
+        Returns
+        -------
+        bool
+            True if text contains a link
+        """
+        links = re.findall(r'\S+\.\S+', tweet)
+        for link in links:
+            if not link.startswith('http'):
+                link = f'https://{link}'
+            response = requests.get(link)
+            if response.ok:
+                return True
+        return False
 
     def _getNewTwitterData(self):
         r"""Set up csv writer to get tweet data."""

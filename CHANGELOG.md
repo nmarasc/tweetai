@@ -2,6 +2,22 @@
 
 - Database for generated tweets to prevent duplicates
 
+## [1.1.1] - 2022-02-19
+
+### Added
+- Option for data mount on the start script
+
+### Changed
+- Adjusted timezone of the container to the running machine's
+- Generated tweets will have links removed from the text
+- Normalized unicode in tweets to avoid tweet too long error
+
+### Fixed
+-
+
+### Removed
+- Upload command from setup because it's unused and causes security alerts
+
 ## [1.1.0] - 2022-02-18
 
 ### Added
