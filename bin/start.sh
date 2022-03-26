@@ -21,7 +21,7 @@ if [ ! -z $DATA ] && [ -f $DATA ]; then
     MOUNT_OPS="$MOUNT_OPS -v $PWD/$DATA:/app/$DATA"
 fi
 
-MOUNT_OPS="$MOUT_OPS -v $PWD/$LOG:/app/$LOG"
+MOUNT_OPS="$MOUNT_OPS -v $PWD/$LOG:/app/$LOG"
 
 source $PWD/.auth/.creds
 docker login $URL -u $GL_USER -p $GL_TOKEN

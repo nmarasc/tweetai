@@ -2,7 +2,19 @@
 
 - Database for generated tweets to prevent duplicates
 
-## [1.1.1] - 2022-02-19
+## [1.1.2] - 2022-03-26
+
+### Added
+- Mount log directory in container for persistent logs
+
+### Changed
+- Container runs detached by default
+- Credentials file read from .auth directory
+
+### Fixed
+- Blocklist was not case insensitive
+
+## [1.1.1] - 2022-03-19
 
 ### Added
 - Option for data mount on the start script
