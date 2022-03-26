@@ -214,7 +214,8 @@ class Brain:
         """
         if self.blocked == []:
             return False
-        return any([term for term in self.blocked if term in tweet])
+        low = tweet.lower()
+        return any([term for term in self.blocked if term in low])
 
     def _hasLink(self, tweet):
         r"""Check if tweet contains a link.

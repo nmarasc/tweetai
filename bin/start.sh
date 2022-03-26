@@ -8,6 +8,7 @@ DATA=$4
 
 MODEL="checkpoint/run1"
 TZ=`cat /etc/timezone`
+LOG=".log/"
 
 MOUNT_OPS=""
 if [ -d $MODEL ]; then
@@ -20,8 +21,10 @@ if [ ! -z $DATA ] && [ -f $DATA ]; then
     MOUNT_OPS="$MOUNT_OPS -v $PWD/$DATA:/app/$DATA"
 fi
 
-source $PWD/.creds
+MOUNT_OPS="$MOUT_OPS -v $PWD/$LOG:/app/$LOG"
+
+source $PWD/.auth/.creds
 docker login $URL -u $GL_USER -p $GL_TOKEN
 
 docker pull $URL:latest
-docker run --rm --name $CNAME --env-file docker.env -e TZ=$TZ $MOUNT_OPS $URL
+docker run --rm -d --name $CNAME --env-file docker.env -e TZ=$TZ $MOUNT_OPS $URL
