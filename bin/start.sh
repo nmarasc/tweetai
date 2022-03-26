@@ -23,7 +23,7 @@ fi
 
 MOUNT_OPS="$MOUT_OPS -v $PWD/$LOG:/app/$LOG"
 
-source $PWD/.creds
+source $PWD/.auth/.creds
 docker login $URL -u $GL_USER -p $GL_TOKEN
 
 docker pull $URL:latest
