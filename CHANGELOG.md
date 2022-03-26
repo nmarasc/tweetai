@@ -14,7 +14,7 @@
 ### Fixed
 - Blocklist was not case insensitive
 
-## [1.1.1] - 2022-02-19
+## [1.1.1] - 2022-03-19
 
 ### Added
 - Option for data mount on the start script
