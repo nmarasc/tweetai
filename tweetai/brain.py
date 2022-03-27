@@ -12,6 +12,7 @@ import csv
 import re
 from time import sleep
 import requests
+from urllib3.exceptions import LocationParseError
 
 import gpt_2_simple as gpt2
 
@@ -234,9 +235,14 @@ class Brain:
         for link in links:
             if not link.startswith('http'):
                 link = f'https://{link}'
-            response = requests.get(link)
-            if response.ok:
-                return True
+            try:
+                response = requests.get(link)
+                if response.ok:
+                    return True
+            except LocationParseError:
+                # LocationParseError thrown by urllib3 when link is invalid
+                # instead of requests.InvalidURL
+                pass
         return False
 
     def _getNewTwitterData(self):
