@@ -2,6 +2,17 @@
 
 - Database for generated tweets to prevent duplicates
 
+## [1.1.3] - 2022-03-27
+
+### Added
+- API version logged at startup
+
+### Changed
+- ValueError raised when version tuple is invalid instead of assertion
+
+### Fixed
+- Catch LocationParseError in urllib3 when link is invalid
+
 ## [1.1.2] - 2022-03-26
 
 ### Added
