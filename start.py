@@ -7,6 +7,7 @@ import logging.config
 import argparse
 
 from tweetai import TweetAI
+from tweetai import __version__
 
 LOGDIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), '.log')
 
@@ -24,6 +25,7 @@ def main(config):
     logging.config.dictConfig(config)
     logger = logging.getLogger(__name__)
     logger.info('Logging configured and initialized')
+    logger.info(f'Welcome to TweetAI version {__version__}')
 
     auth = {
         'bearer_token': os.getenv('BEARER_TOKEN'),

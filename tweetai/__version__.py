@@ -19,12 +19,13 @@ def getVersion(version):
 
     Raises
     ------
-    AssertionError
+    ValueError
         The fourth value in the version tuple was not a valid string
 
         Valid strings are 'alpha', 'beta', 'rc', 'final'
     """
-    assert version[3] in ('alpha', 'beta', 'rc', 'final')
+    if version[3] not in ('alpha', 'beta', 'rc', 'final'):
+        raise ValueError('Invalid fourth value in version tuple')
 
     # Main version is always of the form X.Y.Z
     main = '.'.join(str(x) for x in version[:3])
@@ -37,7 +38,7 @@ def getVersion(version):
     return main + sub
 
 
-VERSION = (1, 1, 2, 'final', 0)
+VERSION = (1, 1, 3, 'final', 0)
 
 __title__ = 'TweetAI'
 __description__ = 'AI driven tweets trained on users.'
