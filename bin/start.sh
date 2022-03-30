@@ -27,4 +27,4 @@ source $PWD/.auth/.creds
 docker login $URL -u $GL_USER -p $GL_TOKEN
 
 docker pull $URL:latest
-docker run --rm -d --name $CNAME --env-file docker.env -e TZ=$TZ $MOUNT_OPS $URL
+docker run -d --restart unless-stopped --name $CNAME --env-file docker.env -e TZ=$TZ $MOUNT_OPS $URL
